@@ -19,6 +19,7 @@ O projeto é estruturado em micro serviços para garantir a separação de respo
 Na raiz do projeto, execute:
 
 ```cmd
+cd ControleGastos
 docker-compose up --build
 ```
 
