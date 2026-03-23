@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  background-color: #b6b6b6c0 !important;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+
+    .bg-white {
+      background-color: #d4d3d3 !important;
+    }
+  }
+
+  @layer components {
+    .card-detalhes {
+      background-color: #dfdfdf;
+    } 
+  }
+}
