@@ -14,23 +14,15 @@ O projeto é estruturado em camadas para garantir a separação de responsabilid
 
 ---
 
-## 🚀 Rodar projeto completo (Comando Único)
+## 🚀 Rodar projeto completo (Comando Único) via Docker (Recomendado)
 
 Na raiz do projeto, execute:
-docker-compose up --build
-
-Front: http://localhost:5173
-Swagger (API): http://localhost:5000/swagger
-
----
-
-## 🐳 Via Docker (Recomendado)
-
-Na raiz do projeto (onde está o arquivo `docker-compose.yml`), abra o terminal e execute:
 
 ```cmd
 docker-compose up --build
 ```
+
+---
 
 ### 🚀 Acesso aos Serviços
 Após o carregamento, os serviços estarão disponíveis em:
@@ -61,6 +53,7 @@ cd web
 npm install
 npm run dev
 ```
+
 * **Acesso Local: http://localhost:5173
 * **Configuração: O frontend consome a API através do Axios, configurado em src/services/api.ts.
 
