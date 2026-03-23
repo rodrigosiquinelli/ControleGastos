@@ -14,6 +14,16 @@ O projeto é estruturado em camadas para garantir a separação de responsabilid
 
 ---
 
+## 🚀 Rodar projeto completo (Comando Único)
+
+Na raiz do projeto, execute:
+docker-compose up --build
+
+Front: http://localhost:5173
+Swagger (API): http://localhost:5000/swagger
+
+---
+
 ## 🐳 Via Docker (Recomendado)
 
 Na raiz do projeto (onde está o arquivo `docker-compose.yml`), abra o terminal e execute:
@@ -40,7 +50,7 @@ cd api/ControleGastos.API
 dotnet run
 ```
 
-* **Endpoint local definido em launchSettings.json:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
+* **ESwagger Local:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
 * **Banco de Dados:** O SQLite será gerado automaticamente em `api/ControleGastos.Infrastructure/ControGastos.db`.
 
 ### 🔹 Frontend (React)
@@ -51,6 +61,15 @@ cd web
 npm install
 npm run dev
 ```
+* **Acesso Local: http://localhost:5173
+* **Configuração: O frontend consome a API através do Axios, configurado em src/services/api.ts.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Backend: .NET 8, Entity Framework Core, SQLite, Swagger/OpenAPI.
+* **Frontend: React 18, TypeScript, Vite, Tailwind CSS v4, Axios, React Router Dom.
 
 ---
 
