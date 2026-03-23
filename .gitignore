@@ -1,0 +1,20 @@
+# .NET (Arquivos de compilação e cache)
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.db
+*.db-journal
+
+# Web / Node (Pastas pesadas que o npm instala)
+web/node_modules/
+web/dist/
+web/.env
+
+# Docker (Dados persistidos)
+database/
+
+# Outros
+.DS_Store
+Thumbs.db
