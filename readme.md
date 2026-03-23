@@ -30,7 +30,7 @@ Após o carregamento, os serviços estarão disponíveis em:
 
 ---
 
-## 💻 Desenvolvimento Local (Sem Docker)
+## 💻 Execução Local (Sem Docker)
 
 ### 🔹 Backend (.NET 8)
 Abra o terminal na pasta da API e execute:
