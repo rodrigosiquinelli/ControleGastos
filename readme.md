@@ -4,7 +4,7 @@ Sistema de controle financeiro pessoal desenvolvido com **.NET 8** seguindo os p
 
 ## 🏗️ Arquitetura do Projeto
 
-O projeto é estruturado em camadas para garantir a separação de responsabilidades e facilitar a manutenção:
+O projeto é estruturado em micro serviços para garantir a separação de responsabilidades e facilitar a manutenção:
 
 - **api/ControleGastos.API**: Ponto de entrada da aplicação (Controllers, Swagger, Injeção de Dependência).
 - **api/ControleGastos.Application**: Camada de serviço (Interfaces de serviço, DTOs, Mapeamentos).
@@ -42,8 +42,8 @@ cd api/ControleGastos.API
 dotnet run
 ```
 
-* **ESwagger Local:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
-* **Banco de Dados:** O SQLite será gerado automaticamente em `api/ControleGastos.Infrastructure/ControGastos.db`.
+* **Swagger Local:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
+* **Banco de Dados:** O SQLite será gerado automaticamente em `api/ControleGastos.Infrastructure/ControleGastos.db`.
 
 ### 🔹 Frontend (React)
 Abra o terminal na pasta `web`, instale as dependências e inicie o projeto:
@@ -61,7 +61,7 @@ npm run dev
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Backend: .NET 8, Entity Framework Core, SQLite, Swagger/OpenAPI.
+* **Backend: .NET 8, Entity Framework Core, SQLite, AutoMapper, Swagger/OpenAPI.
 * **Frontend: React 18, TypeScript, Vite, Tailwind CSS v4, Axios, React Router Dom.
 
 ---
