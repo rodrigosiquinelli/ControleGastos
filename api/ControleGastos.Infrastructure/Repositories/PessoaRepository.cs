@@ -8,6 +8,7 @@ namespace ControleGastos.Infrastructure.Repositories
     {
         public PessoaRepository(ControleGastosDbContext context) : base(context) { }
 
+        // Recupera todas as pessoas e carrega suas transações vinculadas, se houverem.
         public async Task<IEnumerable<Pessoa>> GetPessoasComTransacoesAsync()
         {
             return await _context.Pessoas

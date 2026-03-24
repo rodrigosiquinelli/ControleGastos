@@ -1,5 +1,4 @@
 ﻿using ControleGastos.Domain.Models;
-using System.Linq.Expressions;
 
 namespace ControleGastos.Domain.Interfaces
 {

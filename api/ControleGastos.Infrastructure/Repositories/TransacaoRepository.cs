@@ -1,7 +1,6 @@
 ﻿using ControleGastos.Domain.Interfaces;
 using ControleGastos.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace ControleGastos.Infrastructure.Repositories
 {
@@ -9,7 +8,7 @@ namespace ControleGastos.Infrastructure.Repositories
     {
         public TransacaoRepository(ControleGastosDbContext context) : base(context) { }
 
-        // Sobrescrevemos o GetAll para já trazer os nomes de Pessoa e Categoria (Eager Loading)
+        // Recupera uma transação específica pelo ID, carregando os dados de Pessoa e Categoria vinculados.
         public override async Task<Transacao?> GetByIdAsync(Guid id)
         {
             return await _context.Transacoes
@@ -18,7 +17,7 @@ namespace ControleGastos.Infrastructure.Repositories
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        // Sobrescrevemos o GetAll para as listagens da API virem completas
+        // Recupera todas as transações cadastradas, incluindo as informações de Pessoa e Categoria para cada registro.
         public override async Task<IEnumerable<Transacao>> GetAllAsync(string? search = null)
         {
             return await _context.Transacoes
@@ -28,6 +27,7 @@ namespace ControleGastos.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        // Verifica se existe ao menos uma transação vinculada a uma categoria específica.
         public async Task<bool> ExisteTransacaoComCategoriaAsync(Guid categoriaId)
         {
             return await _context.Transacoes.AnyAsync(t => t.CategoriaId == categoriaId);

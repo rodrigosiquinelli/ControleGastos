@@ -14,6 +14,7 @@ namespace ControleGastos.Infrastructure.Repositories
             _context = context;
         }
 
+        // Gera o relatório consolidado de saldos agrupados por pessoa, realizando a soma diretamente no banco de dados.
         public async Task<RelatorioPessoasGeralDto> GetRelatorioPessoasCompletoAsync()
         {
             var pessoas = await _context.Pessoas
@@ -44,6 +45,7 @@ namespace ControleGastos.Infrastructure.Repositories
             };
         }
 
+        // Gera o relatório consolidado de saldos agrupados por categoria, calculando totais de receitas e despesas.
         public async Task<RelatorioCategoriaGeralDto> GetRelatorioCategoriasCompletoAsync()
         {
             var categorias = await _context.Categorias

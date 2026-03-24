@@ -19,6 +19,7 @@ public static class ControleGastosDependencyInjection
         {
             config.AddProfile<MappingProfile>();
         });
+
         services.AddScoped<IPessoaService, PessoaService>();
         services.AddScoped<ICategoriaService, CategoriaService>();
         services.AddScoped<ITransacaoService, TransacaoService>();
@@ -47,6 +48,7 @@ public static class ControleGastosDependencyInjection
     {
         services.AddSwaggerGen(swagger =>
         {
+            // Define os metadados do Swagger UI
             swagger.SwaggerDoc("v1", new OpenApiInfo
             {
                 Version = "v1",
@@ -61,6 +63,7 @@ public static class ControleGastosDependencyInjection
     {
         services.AddCors(options =>
         {
+            // Define uma política que permite requisições de qualquer origem
             options.AddPolicy("AllowAll", policy =>
             {
                 policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();

@@ -13,6 +13,7 @@ public class TransacoesController : BaseController
         _transacaoService = transacaoService;
     }
 
+    // Retorna a lista de todas as transações.
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string? search = null)
     {
@@ -20,6 +21,7 @@ public class TransacoesController : BaseController
         return Ok(result);
     }
 
+    // Busca uma transação específica pelo seu identificador único.
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -27,6 +29,7 @@ public class TransacoesController : BaseController
         return transacao == null ? NotFound() : Ok(transacao);
     }
 
+    // Registra uma nova transação financeira vinculando pessoa e categoria.
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTransacaoDto dto)
     {
@@ -34,6 +37,7 @@ public class TransacoesController : BaseController
         return CreatedAtAction(nameof(GetById), new { id = transacao.Id }, transacao);
     }
 
+    // Remove um registro de transação do sistema.
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

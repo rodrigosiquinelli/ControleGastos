@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleGastos.Infrastructure.Data
 {
+    // Classe responsável por popular o banco de dados com registros iniciais caso ele esteja vazio.
     public static class SeedData
     {
         public static async Task InitializeAsync(ControleGastosDbContext context)
         {
+            // Verifica se já existem dados; se houver, interrompe a execução para evitar duplicidade.
             if (await context.Pessoas.AnyAsync())
             {
                 return;

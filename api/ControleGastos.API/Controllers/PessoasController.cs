@@ -13,6 +13,7 @@ public class PessoasController : BaseController
         _pessoaService = pessoaService;
     }
 
+    // Retorna a lista de todas as pessoas cadastradas.
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string? search = null)
     {
@@ -20,6 +21,7 @@ public class PessoasController : BaseController
         return Ok(result);
     }
 
+    // Busca uma pessoa específica através do seu identificador único.
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -27,6 +29,7 @@ public class PessoasController : BaseController
         return pessoa == null ? NotFound() : Ok(pessoa);
     }
 
+    // Realiza o cadastro de uma nova pessoa no sistema.
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePessoaDto dto)
     {
@@ -34,6 +37,7 @@ public class PessoasController : BaseController
         return CreatedAtAction(nameof(GetById), new { id = pessoa.Id }, pessoa);
     }
 
+    // Atualiza as informações de uma pessoa já existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdatePessoaDto dto)
     {
@@ -41,6 +45,7 @@ public class PessoasController : BaseController
         return NoContent();
     }
 
+    // Remove uma pessoa do sistema junto com suas transações.
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ControleGastos.Domain.Models
 {
+    // Entidade de domínio que representa uma transacao, contendo regras de negócio e validações internas.
+
     public class Transacao : EntityBase
     {
         [Required]
@@ -17,17 +19,21 @@ namespace ControleGastos.Domain.Models
 
         [Required]
         public Guid CategoriaId { get; private set; }
+        // Propriedade de navegação do EF para a categoria vinculada
         public virtual Categoria Categoria { get; private set; } = null!;
 
         [Required]
         public Guid PessoaId { get; private set; }
+        // Propriedade de navegação do EF para a pessoa vinculada
         public virtual Pessoa Pessoa { get; private set; } = null!;
 
         [Required]
         public DateTime Data { get; private set; }
 
+        // Construtor vazio necessário para o funcionamento do Entity Framework
         protected Transacao() { }
 
+        // Construtor principal que garante a criação de uma transacao em estado válido
         public Transacao(string descricao, decimal valor, TipoTransacao tipo, Categoria categoria, Pessoa pessoa, DateTime data)
         {
             SetDescricao(descricao);
@@ -62,6 +68,7 @@ namespace ControleGastos.Domain.Models
             Data = data;
         }
 
+        // Valida se a categoria aceita o tipo de transação
         public void SetCategoria(Categoria categoria)
         {
             if (categoria == null) throw new ArgumentNullException(nameof(categoria));
@@ -78,6 +85,7 @@ namespace ControleGastos.Domain.Models
             CategoriaId = categoria.Id;
         }
 
+        // Valida se a pessoa cumpre os requisitos para o tipo de transação
         public void SetPessoa(Pessoa pessoa)
         {
             if (pessoa == null) throw new ArgumentNullException(nameof(pessoa));

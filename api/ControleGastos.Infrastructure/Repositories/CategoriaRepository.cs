@@ -8,6 +8,7 @@ namespace ControleGastos.Infrastructure.Repositories
     {
         public CategoriaRepository(ControleGastosDbContext context) : base(context) { }
 
+        // Recupera todas as categorias e carrega suas transações vinculadas, se houverem.
         public async Task<IEnumerable<Categoria>> GetCategoriasComTransacoesAsync()
         {
             return await _context.Categorias

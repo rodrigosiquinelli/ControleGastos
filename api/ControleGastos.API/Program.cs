@@ -19,6 +19,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    // Cria um escopo temporário para garantir a criação do banco e popular dados iniciais
     using (var scope = app.Services.CreateScope())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<ControleGastosDbContext>();
@@ -28,21 +29,22 @@ if (app.Environment.IsDevelopment())
     }
 }
 
-// Configure the HTTP request pipeline.
+// Configura o pipeline de requisição HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ControleGastos.Api v1");
-        c.DefaultModelsExpandDepth(-1); //Hides the schemas section
+        c.DefaultModelsExpandDepth(-1); //Oculta a seção de Schemas
     });
-    // Redirect root to Swagger UI for convenience
+    // Redireciona a rota raiz (/) diretamente para o Swagger para facilitar
     app.MapGet("/", () => Results.Redirect("/swagger"));
 }
 
 app.UseHttpsRedirection();
 
+// Registra o middleware customizado para capturar e tratar erros globais da aplicação
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("AllowAll");

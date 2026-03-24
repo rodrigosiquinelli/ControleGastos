@@ -1,5 +1,7 @@
 ﻿namespace ControleGastos.Application.Interfaces
 {
+    /* Interface genérica que define o contrato padrão para operações de CRUD, 
+     permitindo a reutilização da mesma estrutura em diferentes serviços da aplicação.*/
     public interface IBaseService<TDto, TCreateDto, TUpdateDto>
         where TDto : class
     {

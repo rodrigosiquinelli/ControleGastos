@@ -12,6 +12,7 @@ public class TotaisController : BaseController
         _totalService = totalService;
     }
 
+    // Endpoint para obter o somatório de gastos agrupados por cada pessoa cadastrada
     [HttpGet("pessoas")]
     public async Task<IActionResult> GetTotaisPorPessoa()
     {
@@ -19,6 +20,7 @@ public class TotaisController : BaseController
         return Ok(result);
     }
 
+    // Endpoint para obter o somatório de gastos agrupados por categorias
     [HttpGet("categorias")]
     public async Task<IActionResult> GetTotaisPorCategoria()
     {

@@ -13,6 +13,7 @@ public class CategoriasController : BaseController
         _categoriaService = categoriaService;
     }
 
+    // Retorna todas as categorias cadastradas.
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string? search = null)
     {
@@ -20,6 +21,7 @@ public class CategoriasController : BaseController
         return Ok(result);
     }
 
+    // Busca uma categoria específica através do seu identificador único.
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -27,6 +29,7 @@ public class CategoriasController : BaseController
         return categoria == null ? NotFound() : Ok(categoria);
     }
 
+    // Realiza o cadastro de uma nova categoria.
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCategoriaDto dto)
     {
@@ -34,6 +37,7 @@ public class CategoriasController : BaseController
         return CreatedAtAction(nameof(GetById), new { id = categoria.Id }, categoria);
     }
 
+    // Atualiza as informações de uma categoria existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] CategoriaDto dto)
     {
@@ -41,6 +45,7 @@ public class CategoriasController : BaseController
         return NoContent();
     }
 
+    // Remove uma categoria do sistema.
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

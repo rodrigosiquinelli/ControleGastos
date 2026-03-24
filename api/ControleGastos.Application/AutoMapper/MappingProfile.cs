@@ -2,13 +2,13 @@
 using ControleGastos.Application.DTOs.Categoria;
 using ControleGastos.Application.DTOs.Pessoa;
 using ControleGastos.Application.DTOs.Transacao;
-using ControleGastos.Domain.DTOs;
 using ControleGastos.Domain.Models;
 
 namespace ControleGastos.Application.AutoMapper
 {
     public class MappingProfile : Profile
     {
+        // Define as regras de conversão entre as entidades do banco de dados e DTOs
         public MappingProfile()
         {
             CreateMap<Pessoa, PessoaDto>();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleGastos.Infrastructure
 {
+    // Classe de contexto do Entity Framework Core que coordena a funcionalidade de banco de dados para os modelos de domínio.
     public class ControleGastosDbContext : DbContext
     {
         public ControleGastosDbContext(DbContextOptions<ControleGastosDbContext> options) : base(options) { }
@@ -18,7 +19,7 @@ namespace ControleGastos.Infrastructure
             modelBuilder.Entity<Categoria>().HasKey(c => c.Id);
             modelBuilder.Entity<Transacao>().HasKey(t => t.Id);
 
-            // Configurações de Tamanho (Conforme especificação)
+            // Configurações de Tamanho
             modelBuilder.Entity<Pessoa>().Property(p => p.Nome).HasMaxLength(200).IsRequired();
             modelBuilder.Entity<Categoria>().Property(c => c.Descricao).HasMaxLength(400).IsRequired();
             modelBuilder.Entity<Transacao>().Property(t => t.Descricao).HasMaxLength(400).IsRequired();
