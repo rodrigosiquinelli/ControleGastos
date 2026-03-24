@@ -4,7 +4,7 @@ Sistema de controle financeiro pessoal desenvolvido com **.NET 8** seguindo os p
 
 ## 🏗️ Arquitetura do Projeto
 
-O projeto é estruturado em camadas para garantir a separação de responsabilidades e facilitar a manutenção:
+O projeto é estruturado em micro serviços para garantir a separação de responsabilidades e facilitar a manutenção:
 
 - **api/ControleGastos.API**: Ponto de entrada da aplicação (Controllers, Swagger, Injeção de Dependência).
 - **api/ControleGastos.Application**: Camada de serviço (Interfaces de serviço, DTOs, Mapeamentos).
@@ -14,13 +14,16 @@ O projeto é estruturado em camadas para garantir a separação de responsabilid
 
 ---
 
-## 🐳 Via Docker (Recomendado)
+## 🚀 Rodar projeto completo (Comando Único) via Docker (Recomendado)
 
-Na raiz do projeto (onde está o arquivo `docker-compose.yml`), abra o terminal e execute:
+Na raiz do projeto, execute:
 
 ```cmd
+cd ControleGastos
 docker-compose up --build
 ```
+
+---
 
 ### 🚀 Acesso aos Serviços
 Após o carregamento, os serviços estarão disponíveis em:
@@ -40,8 +43,8 @@ cd api/ControleGastos.API
 dotnet run
 ```
 
-* **Endpoint local definido em launchSettings.json:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
-* **Banco de Dados:** O SQLite será gerado automaticamente em `api/ControleGastos.Infrastructure/ControGastos.db`.
+* **Swagger Local:** [http://localhost:5018/swagger](http://localhost:5018/swagger)
+* **Banco de Dados:** O SQLite será gerado automaticamente em `api/ControleGastos.Infrastructure/ControleGastos.db`.
 
 ### 🔹 Frontend (React)
 Abra o terminal na pasta `web`, instale as dependências e inicie o projeto:
@@ -51,6 +54,16 @@ cd web
 npm install
 npm run dev
 ```
+
+* **Acesso Local: http://localhost:5173
+* **Configuração: O frontend consome a API através do Axios, configurado em src/services/api.ts.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Backend: .NET 8, Entity Framework Core, SQLite, AutoMapper, Swagger/OpenAPI.
+* **Frontend: React 18, TypeScript, Vite, Tailwind CSS v4, Axios, React Router Dom.
 
 ---
 
