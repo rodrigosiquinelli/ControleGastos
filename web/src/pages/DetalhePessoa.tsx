@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import { usePagination } from '../hooks/usePagination'; // Importando o hook
+import { usePagination } from '../hooks/usePagination';
 
+// Componente de detalhamento individual que exibe o perfil da pessoa e seu extrato financeiro.
 export function DetalhePessoa() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [pessoa, setPessoa] = useState<any>(null);
   const [transacoes, setTransacoes] = useState<any[]>([]);
 
-  // Inicializando o motor de paginação
+  // Configuração do hook de paginação.
   const { 
     currentItems, 
     currentPage, 
@@ -18,6 +19,7 @@ export function DetalhePessoa() {
     goToPrev 
   } = usePagination(transacoes, 10);
 
+  // Carrega os dados do perfil e a lista de transações.
   useEffect(() => {
     async function carregar() {
       try {
@@ -28,7 +30,7 @@ export function DetalhePessoa() {
         
         setPessoa(resP.data);
 
-        // Mapeamento baseado no seu JSON (tipo 1 = Despesa, tipo 2 = Receita)
+        // Filtra apenas as transações pertencentes a esta pessoa.
         const filtradas = (resT.data || [])
           .filter((t: any) => t.pessoaId === id)
           .map((t: any) => ({
@@ -38,15 +40,16 @@ export function DetalhePessoa() {
           
         setTransacoes(filtradas);
       } catch (err) {
-        console.error("Erro ao carregar:", err);
+        console.error("Erro ao carregar detalhes:", err);
       }
     }
     carregar();
   }, [id]);
 
+  // Exibe uma mensagem de carregamento enquanto os dados da API não são retornados.
   if (!pessoa) return <div className="p-20 text-center font-bold text-gray-400">Carregando...</div>;
 
-  // Cálculos baseados no array COMPLETO
+  // Realiza o somatório total de receitas e despesas.
   const totalReceita = transacoes
     .filter(t => t.tipo === 2)
     .reduce((acc, t) => acc + t.valor, 0);
@@ -61,7 +64,7 @@ export function DetalhePessoa() {
     <div className="max-w-4xl mx-auto space-y-6 text-left animate-in fade-in duration-500">
       <button onClick={() => navigate(-1)} className="font-bold text-blue-600 hover:underline">← Voltar</button>
 
-      {/* Header com Totais Reais */}
+      {/* Cabeçalho de perfil com os totais financeiros da pessoa. */}
       <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div>
@@ -88,7 +91,7 @@ export function DetalhePessoa() {
         </div>
       </div>
 
-      {/* Tabela de Extrato Pagina (currentItems) */}
+      {/* Tabela de histórico de transacoes. */}
       <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full">
           <tbody className="divide-y divide-gray-50">
@@ -108,7 +111,7 @@ export function DetalhePessoa() {
           </tbody>
         </table>
 
-        {/* Controles de Paginação */}
+        {/* Controles de Navegação da Paginação */}
         {totalPages > 1 && (
           <div className="p-6 bg-gray-50/30 border-t flex items-center justify-between">
             <span className="text-xs font-black text-gray-400 uppercase">
@@ -133,6 +136,7 @@ export function DetalhePessoa() {
           </div>
         )}
 
+      {/* Estado vazio para quando não há registros retornados pela API */}
         {transacoes.length === 0 && (
           <p className="p-20 text-center text-gray-400 italic">Nenhuma movimentação para esta pessoa.</p>
         )}

@@ -2,7 +2,7 @@ services:
   api-gastos:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: api/Dockerfile
     container_name: api-controle-gastos
     ports:
       - "5000:8080"
@@ -11,3 +11,15 @@ services:
       - ConnectionStrings__DefaultConnection=Data Source=/app/database/ControleGastos.db
     volumes:
       - ./database:/app/database
+
+  web-gastos:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: web-controle-gastos
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gastos
+    environment:
+      - VITE_API_URL=http://localhost:5000/api

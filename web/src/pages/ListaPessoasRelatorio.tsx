@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { usePagination } from '../hooks/usePagination';
 
+// Componente de relatório que lista o balanço financeiro por pessoa.
 export function ListaPessoasRelatorio() {
   const [pessoas, setPessoas] = useState<any[]>([]);
   const [transacoes, setTransacoes] = useState<any[]>([]);
@@ -10,6 +11,7 @@ export function ListaPessoasRelatorio() {
 
   const { currentItems, currentPage, totalPages, goToNext, goToPrev } = usePagination(pessoas, 10);
 
+  // Inicializa o carregamento de dados buscando pessoas e transações em paralelo.
   useEffect(() => {
     async function carregarDados() {
       try {
@@ -26,7 +28,7 @@ export function ListaPessoasRelatorio() {
     carregarDados();
   }, []);
 
-  // Função para calcular totais de uma pessoa específica
+  // Filtra as transações de uma pessoa específica e calcula os totais de receitas, despesas e saldo líquido.
   const calcularTotaisPessoa = (pessoaId: string) => {
     const tPessoa = transacoes.filter(t => t.pessoaId === pessoaId);
     const receitas = tPessoa.filter(t => t.tipo === 2).reduce((acc, t) => acc + Number(t.valor), 0);
@@ -34,7 +36,7 @@ export function ListaPessoasRelatorio() {
     return { receitas, despesas, saldo: receitas - despesas };
   };
 
-  // CÁLCULO DO TOTAL GERAL (Soma de todas as transações do sistema)
+  // Somatório financeiro de todas as pessoas cadastradas no sistema.
   const totalGeralReceitas = transacoes.filter(t => t.tipo === 2).reduce((acc, t) => acc + Number(t.valor), 0);
   const totalGeralDespesas = transacoes.filter(t => t.tipo === 1).reduce((acc, t) => acc + Number(t.valor), 0);
   const saldoLiquidoGeral = totalGeralReceitas - totalGeralDespesas;
@@ -48,7 +50,7 @@ export function ListaPessoasRelatorio() {
         </div>
       </div>
 
-      {/* Grid de Pessoas com Totais Individuais */}
+      {/* Exibição das pessoas com seus respectivos resumos financeiros. */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {currentItems.map(p => {
           const { receitas, despesas, saldo } = calcularTotaisPessoa(p.id);
@@ -66,6 +68,7 @@ export function ListaPessoasRelatorio() {
                 <span className="text-blue-500 font-black text-xs opacity-0 group-hover:opacity-100 transition-all">DETALHES →</span>
               </div>
 
+              {/* Subtotal financeiro por pessoa. */}
               <div className="grid grid-cols-3 gap-2 pt-2 border-t border-gray-50">
                 <div className="text-center">
                   <p className="text-[8px] font-black text-gray-400 uppercase">Receitas</p>
@@ -84,8 +87,8 @@ export function ListaPessoasRelatorio() {
           );
         })}
       </div>
-
-      {/* Paginação */}
+      
+      {/* Controles de Navegação da Paginação */}
       {totalPages > 1 && (
         <div className="flex justify-between items-center bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
            <p className="text-[10px] font-black text-gray-400 uppercase">Página {currentPage} de {totalPages}</p>
@@ -96,7 +99,7 @@ export function ListaPessoasRelatorio() {
         </div>
       )}
 
-      {/* SEÇÃO DE TOTAL GERAL (REQUISITO OBRIGATÓRIO) */}
+      {/* Painel que apresenta o balanço total de todas as transações do sistema. */}
       <div className="mt-12 bg-gray-900 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-900/20 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-10 text-9xl font-black">Σ</div>
         <h2 className="text-xs font-black uppercase tracking-[0.3em] mb-6 text-blue-400">Resumo Geral do Sistema</h2>
@@ -118,7 +121,8 @@ export function ListaPessoasRelatorio() {
           </div>
         </div>
       </div>
-
+      
+      {/* Estado vazio para quando não há registros retornados pela API */}
       {pessoas.length === 0 && (
         <p className="p-20 text-center text-gray-400 italic font-medium">Nenhuma pessoa cadastrada para exibir totais.</p>
       )}

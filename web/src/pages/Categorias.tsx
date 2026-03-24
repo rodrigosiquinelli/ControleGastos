@@ -9,6 +9,7 @@ interface Categoria {
   finalidade: any; 
 }
 
+// Componente para gerenciamento de categorias.
 export function Categorias() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [descricao, setDescricao] = useState('');
@@ -26,10 +27,12 @@ export function Categorias() {
     goToPrev 
   } = usePagination(categorias, 10);
 
+  // Inicializa a listagem de categorias ao carregar o componente.
   useEffect(() => {
     carregarCategorias();
   }, []);
 
+  // Consome a API para buscar todas as categorias cadastradas e atualiza o estado local.
   async function carregarCategorias() {
     try {
       setCarregando(true);
@@ -42,24 +45,26 @@ export function Categorias() {
     }
   }
 
+  // Prepara o formulário para edição.
   function prepararEdicao(cat: Categoria, e: React.MouseEvent) {
-    e.stopPropagation(); // Evita redirecionar para o relatório ao clicar no ícone
+    e.stopPropagation(); 
     setEditandoId(cat.id);
     setDescricao(cat.descricao);
     
-    // Converte o número do banco de volta para o texto do select
     const fin = Number(cat.finalidade);
     setFinalidade(fin === 2 ? 'Receita' : fin === 3 ? 'Ambas' : 'Despesa');
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // Reseta o estado do formulário e limpa o ID de edição.
   function cancelarEdicao() {
     setEditandoId(null);
     setDescricao('');
     setFinalidade('Despesa');
   }
 
+  // Envia os dados para salvar ou atualizar a categoria.
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     if (!descricao.trim()) return alert("Digite uma descrição!");
@@ -101,6 +106,7 @@ export function Categorias() {
         </span>
       </div>
 
+      {/* Formulário de criação e atualização de categorias */}
       <form onSubmit={salvar} className={`bg-white p-8 rounded-3xl shadow-xl border-2 transition-all ${editandoId ? 'border-green-500' : 'border-transparent'} grid grid-cols-1 md:grid-cols-3 gap-6 items-end`}>
         <div className="md:col-span-1 flex flex-col gap-2 text-left">
           <label className="text-sm font-bold text-gray-700 ml-1">Descrição</label>
@@ -142,6 +148,7 @@ export function Categorias() {
         <p className="text-center py-20 text-gray-400 font-medium italic animate-pulse">Carregando categorias...</p>
       ) : (
         <>
+          {/* Listagem de categorias renderizada em formato de cards interativos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentItems.map(cat => {
               const fin = Number(cat.finalidade);
@@ -178,6 +185,7 @@ export function Categorias() {
             })}
           </div>
 
+          {/* Controles de Navegação da Paginação */}
           {totalPages > 1 && (
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100">
               <p className="text-sm font-bold text-gray-400 uppercase">Página {currentPage} de {totalPages}</p>

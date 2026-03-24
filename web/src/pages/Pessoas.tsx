@@ -7,21 +7,24 @@ interface Pessoa {
   id: string;
   nome: string;
   idade: number;
-  dataNascimento?: string; // Adicionado para facilitar a edição
+  dataNascimento?: string;
 }
 
+// Componente de página para gerenciamento de pessoas, permitindo listagem, cadastro, edição e exclusão.
 export function Pessoas() {
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [carregando, setCarregando] = useState(false);
-  const [editandoId, setEditandoId] = useState<string | null>(null); // Controle de edição
+  const [editandoId, setEditandoId] = useState<string | null>(null); 
   
   const navigate = useNavigate();
   const { currentItems, currentPage, totalPages, goToNext, goToPrev } = usePagination(pessoas, 10);
 
+  // Carrega a lista inicial de pessoas assim que o componente é montado na tela.
   useEffect(() => { carregarPessoas(); }, []);
 
+  // Busca os dados da API e atualiza o estado local de pessoas.
   async function carregarPessoas() {
     try {
       const res = await api.get('/Pessoas');
@@ -29,6 +32,7 @@ export function Pessoas() {
     } catch (err) { console.error(err); }
   }
 
+  // Função auxiliar para calcular a idade com base na data de nascimento selecionada no formulário.
   function calcularIdade(data: string): number {
     const hoje = new Date();
     const nascimento = new Date(data);
@@ -38,24 +42,25 @@ export function Pessoas() {
     return idade;
   }
 
-  // Preenche o formulário com os dados da pessoa para editar
+  // Preenche o formulário com os dados da pessoa selecionada e rola a tela para o topo para edição.
   function prepararEdicao(p: Pessoa, e: React.MouseEvent) {
     e.stopPropagation();
     setEditandoId(p.id);
     setNome(p.nome);
-    // Tenta formatar a data para o input tipo 'date' (yyyy-mm-dd)
     if (p.dataNascimento) {
       setDataNascimento(p.dataNascimento.split('T')[0]);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // Limpa os campos do formulário e encerra o modo de edição.
   function cancelarEdicao() {
     setEditandoId(null);
     setNome('');
     setDataNascimento('');
   }
 
+  // Envia os dados para a API, alternando entre criação ou atualização conforme o estado.
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     if (nome.trim().length < 3) return alert("Digite o nome completo.");
@@ -70,11 +75,9 @@ export function Pessoas() {
       const payload = { nome, idade: idadeCalculada, dataNascimento: dataFormatadaUniversal };
 
       if (editandoId) {
-        // MODO EDIÇÃO (PUT)
         await api.put(`/Pessoas/${editandoId}`, { ...payload, id: editandoId });
         alert("✅ Atualizado com sucesso!");
       } else {
-        // MODO CADASTRO (POST)
         await api.post('/Pessoas', payload);
         alert("✅ Cadastrado com sucesso!");
       }
@@ -88,6 +91,7 @@ export function Pessoas() {
     }
   }
 
+  // Remove um registro de pessoa após a confirmação do usuário e atualiza a lista.
   async function excluir(id: string, e: React.MouseEvent) {
     e.stopPropagation(); 
     if (window.confirm("Tem certeza? Isso apagará todas as transações desta pessoa.")) {
@@ -110,6 +114,7 @@ export function Pessoas() {
         </p>
       </div>
 
+      {/* Formulário de Cadastro e Edição */}
       <form onSubmit={salvar} className={`bg-white p-8 rounded-3xl shadow-xl border-2 transition-all ${editandoId ? 'border-orange-400' : 'border-transparent'} flex flex-col md:flex-row gap-6 items-end`}>
         <div className="flex-1 w-full text-left">
           <label className="text-sm font-bold text-gray-600 ml-1">Nome Completo</label>
@@ -132,6 +137,7 @@ export function Pessoas() {
         </div>
       </form>
 
+      {/* Grid de Cards para exibição das pessoas cadastradas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentItems.map(p => (
           <div 
@@ -156,7 +162,7 @@ export function Pessoas() {
         ))}
       </div>
 
-      {/* Paginação vinda do Hook */}
+      {/* Controles de Navegação da Paginação */}
       {totalPages > 1 && (
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100">
           <p className="text-sm font-bold text-gray-400 uppercase">Página {currentPage} de {totalPages}</p>
@@ -167,6 +173,7 @@ export function Pessoas() {
         </div>
       )}
 
+      {/* Estado vazio para quando não há registros retornados pela API */}
       {pessoas.length === 0 && (
         <div className="py-20 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
           <p className="text-gray-400">Nenhuma pessoa cadastrada.</p>

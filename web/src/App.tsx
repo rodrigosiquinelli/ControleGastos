@@ -11,9 +11,8 @@ import { DetalheCategoria } from './pages/DetalheCategoria';
 function App() {
   return (
     <Router>
-      {/* Removido o 'bg-gray-50' para que a cor do index.css (body) apareça */}
       <div className="min-h-screen font-sans">
-        {/* Menu de Navegação */}
+        {/* Menu de navegação fixo com links para as principais seções do sistema. */}
         <nav className="bg-white shadow-sm border-b border-gray-100 px-4 py-4 mb-8">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <Link to="/" className="text-2xl font-black text-blue-600 flex items-center gap-2">
@@ -35,16 +34,19 @@ function App() {
         {/* Área de Conteúdo */}
         <main className="max-w-6xl mx-auto px-4 pb-20">
           <Routes>
+            {/* Definição das rotas para as páginas de cadastros básicos. */}
             <Route path="/pessoas" element={<Pessoas />} />
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/transacoes" element={<Transacoes />} />
             
+            {/* Definição das rotas para a seção de relatórios e detalhes financeiros. */}
             <Route path="/totais" element={<Totais />} />
             <Route path="/relatorios/lista-pessoas" element={<ListaPessoasRelatorio />} />
             <Route path="/relatorios/pessoa/:id" element={<DetalhePessoa />} />
             <Route path="/relatorios/lista-categorias" element={<ListaCategoriasRelatorio />} />
             <Route path="/relatorios/categoria/:id" element={<DetalheCategoria />} />
             
+            {/* Rota raiz que exibe a página inicial de boas-vindas com chamada para ação. */}
             <Route path="/" element={
               <div className="text-center py-32 bg-white rounded-[3rem] shadow-xl shadow-gray-200/50 border border-gray-100">
                 <h1 className="text-5xl font-black text-gray-900 mb-4 tracking-tight">

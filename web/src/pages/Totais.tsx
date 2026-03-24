@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+// Componente de menu de relatórios para navegação entre visões por Pessoa ou por Categoria.
 export function Totais() {
   const navigate = useNavigate();
 
@@ -11,7 +12,7 @@ export function Totais() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Opção Pessoas */}
+        {/* Opção de navegação para o relatório detalhado agrupado por pessoas. */}
         <button 
           onClick={() => navigate('/relatorios/lista-pessoas')} 
           className="group bg-white p-10 rounded-[2.5rem] shadow-xl shadow-blue-100/40 border-2 border-transparent hover:border-blue-500 transition-all text-left flex flex-col justify-between min-h-[300px]"
@@ -30,7 +31,7 @@ export function Totais() {
           </span>
         </button>
 
-        {/* Opção Categorias */}
+        {/* Opção de navegação para o relatório detalhado agrupado por categorias. */}
         <button 
           onClick={() => navigate('/relatorios/lista-categorias')}
           className="group bg-white p-10 rounded-[2.5rem] shadow-xl shadow-gray-100/40 border-2 border-transparent hover:border-blue-500 transition-all text-left flex flex-col justify-between min-h-[300px]"

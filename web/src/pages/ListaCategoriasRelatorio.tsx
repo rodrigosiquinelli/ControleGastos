@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { usePagination } from '../hooks/usePagination';
 
+// Componente de relatório que lista todas as categorias com somatórios de receitas, despesas e saldo.
 export function ListaCategoriasRelatorio() {
   const [categorias, setCategorias] = useState<any[]>([]);
   const [transacoes, setTransacoes] = useState<any[]>([]);
@@ -10,6 +11,7 @@ export function ListaCategoriasRelatorio() {
 
   const { currentItems, currentPage, totalPages, goToNext, goToPrev } = usePagination(categorias, 10);
 
+  // Carrega as categorias e transações em paralelo.
   useEffect(() => {
     async function carregarDados() {
       try {
@@ -26,7 +28,7 @@ export function ListaCategoriasRelatorio() {
     carregarDados();
   }, []);
 
-  // Função para calcular totais de uma categoria específica
+  // Filtra as transações por categoria e calcula o total acumulado de receitas e despesas.
   const calcularTotaisCategoria = (categoriaId: string) => {
     const tCat = transacoes.filter(t => t.categoriaId === categoriaId);
     const receitas = tCat.filter(t => t.tipo === 2).reduce((acc, t) => acc + Number(t.valor), 0);
@@ -34,7 +36,7 @@ export function ListaCategoriasRelatorio() {
     return { receitas, despesas, saldo: receitas - despesas };
   };
 
-  // CÁLCULO DO TOTAL GERAL DE CATEGORIAS
+  // Somatório financeiro de todas as categorias cadastradas.
   const totalGeralReceitas = transacoes.filter(t => t.tipo === 2).reduce((acc, t) => acc + Number(t.valor), 0);
   const totalGeralDespesas = transacoes.filter(t => t.tipo === 1).reduce((acc, t) => acc + Number(t.valor), 0);
   const saldoLiquidoGeral = totalGeralReceitas - totalGeralDespesas;
@@ -46,6 +48,7 @@ export function ListaCategoriasRelatorio() {
         <h1 className="text-2xl font-black text-gray-800 uppercase tracking-tighter">Totais por Categoria</h1>
       </div>
 
+      {/* Grid de cards exibindo o resumo financeiro individual de cada categoria. */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {currentItems.map(c => {
           const fin = Number(c.finalidade);
@@ -71,7 +74,7 @@ export function ListaCategoriasRelatorio() {
                 <span className="text-green-500 font-black text-xs opacity-0 group-hover:opacity-100 transition-all">VER →</span>
               </div>
 
-              {/* Mini Resumo por Categoria */}
+              {/* Subtotal financeiro por categoria: receitas, despesas e o saldo líquido. */}
               <div className="grid grid-cols-3 gap-2 pt-2 border-t border-gray-50">
                 <div className="text-center">
                   <p className="text-[8px] font-black text-gray-400 uppercase">Rec.</p>
@@ -90,8 +93,8 @@ export function ListaCategoriasRelatorio() {
           );
         })}
       </div>
-
-      {/* Paginação */}
+      
+      {/* Controles de Navegação da Paginação */}
       {totalPages > 1 && (
         <div className="flex justify-between items-center bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
            <p className="text-[10px] font-black text-gray-400 uppercase">Página {currentPage} de {totalPages}</p>
@@ -102,7 +105,7 @@ export function ListaCategoriasRelatorio() {
         </div>
       )}
 
-      {/* SEÇÃO DE TOTAL GERAL DE CATEGORIAS */}
+      {/* Painel que apresenta o balanço financeiro total de todas as categorias. */}
       <div className="mt-12 bg-gray-900 p-8 rounded-[2.5rem] shadow-2xl shadow-green-900/20 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-10 text-9xl font-black text-green-500">📊</div>
         <h2 className="text-xs font-black uppercase tracking-[0.3em] mb-6 text-green-400">Balanço Geral por Categorias</h2>
