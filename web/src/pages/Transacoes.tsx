@@ -83,7 +83,8 @@ export function Transacoes() {
         valor: valorNumerico, 
         tipo: tipoNumerico, 
         pessoaId, 
-        categoriaId 
+        categoriaId,
+        data: new Date().toISOString()
       });
       
       setDescricao(''); 
