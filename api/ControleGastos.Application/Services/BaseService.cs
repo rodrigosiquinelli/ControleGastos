@@ -35,16 +35,10 @@ namespace ControleGastos.Application.Services
         }
 
         // Método não implementado na base; deve ser obrigatoriamente sobrescrito nas classes filhas para tratar a criação
-        public virtual Task<TDto> CreateAsync(TCreateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<TDto> CreateAsync(TCreateDto dto);
 
         // Método não implementado na base; deve ser obrigatoriamente sobrescrito nas classes filhas para tratar a atualização
-        public virtual Task UpdateAsync(Guid id, TUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task UpdateAsync(Guid id, TUpdateDto dto);
 
         // Remove um registro através do repositório e efetiva a transação no banco de dados via Unit of Work
         public virtual async Task DeleteAsync(Guid id)

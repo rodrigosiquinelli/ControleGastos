@@ -2,9 +2,8 @@
 {
     // Entidade de domínio que representa uma pessoa, contendo regras de negócio e validações internas.
 
-    public class Pessoa
+    public class Pessoa : EntityBase
     {
-        public Guid Id { get; private set; }
         public string Nome { get; private set; }
         public DateTime DataNascimento { get; private set; }
 

@@ -39,5 +39,10 @@ namespace ControleGastos.Application.Services
 
             return _mapper.Map<TransacaoDto>(transacao);
         }
+
+        public override Task UpdateAsync(Guid id, TransacaoDto dto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

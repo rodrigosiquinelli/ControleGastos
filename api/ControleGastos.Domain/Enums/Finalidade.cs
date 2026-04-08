@@ -1,9 +1,10 @@
 ﻿namespace ControleGastos.Domain.Enums
 {
+    [Flags]
     public enum Finalidade
     {
-        Despesa = 1,
-        Receita = 2,
-        Ambas = 3
+        Despesa = TipoTransacao.Despesa,
+        Receita = TipoTransacao.Receita,
+        Ambas = TipoTransacao.Despesa | TipoTransacao.Receita
     }
 }
