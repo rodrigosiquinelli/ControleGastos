@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\ControleGastos.Application\ControleGastos.Application.csproj" />
     <ProjectReference Include="..\API\ControleGastos.Domain\ControleGastos.Domain.csproj" />
   </ItemGroup>
 
