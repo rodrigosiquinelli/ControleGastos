@@ -117,13 +117,26 @@ export function Pessoas() {
       {/* Formulário de Cadastro e Edição */}
       <form onSubmit={salvar} className={`bg-white p-8 rounded-3xl shadow-xl border-2 transition-all ${editandoId ? 'border-orange-400' : 'border-transparent'} flex flex-col md:flex-row gap-6 items-end`}>
         <div className="flex-1 w-full text-left">
-          <label className="text-sm font-bold text-gray-600 ml-1">Nome Completo</label>
-          <input className="w-full mt-1 border-2 border-gray-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition-all bg-gray-50/50" value={nome} onChange={e => setNome(e.target.value)} required />
-        </div>
+        <label htmlFor="nome" className="text-sm font-bold text-gray-600 ml-1">Nome Completo</label>
+        <input 
+          id="nome" 
+          className="w-full mt-1 border-2 border-gray-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition-all bg-gray-50/50" 
+          value={nome} 
+          onChange={e => setNome(e.target.value)} 
+          required 
+        />
+      </div>
         <div className="w-full md:w-64 text-left">
-          <label className="text-sm font-bold text-gray-600 ml-1">Data de Nascimento</label>
-          <input type="date" className="w-full mt-1 border-2 border-gray-100 rounded-2xl p-4 focus:border-blue-500 outline-none bg-gray-50/50" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required />
-        </div>
+        <label htmlFor="dataNascimento" className="text-sm font-bold text-gray-600 ml-1">Data de Nascimento</label>
+        <input 
+          id="dataNascimento" 
+          type="date" 
+          className="w-full mt-1 border-2 border-gray-100 rounded-2xl p-4 focus:border-blue-500 outline-none bg-gray-50/50" 
+          value={dataNascimento} 
+          onChange={e => setDataNascimento(e.target.value)} 
+          required 
+        />
+      </div>
         
         <div className="flex gap-2 w-full md:w-auto">
           {editandoId && (
