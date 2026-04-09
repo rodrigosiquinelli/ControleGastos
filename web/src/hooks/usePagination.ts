@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // Hook customizado para gerenciar a lógica de paginação de listas de forma genérica e reutilizável.
 export function usePagination<T>(items: T[], itemsPerPage: number = 10) {
@@ -10,8 +10,9 @@ export function usePagination<T>(items: T[], itemsPerPage: number = 10) {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
-  const goToNext = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
-  const goToPrev = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+  const goToNext = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const reset = () => setCurrentPage(1);
 
   return {
@@ -21,6 +22,6 @@ export function usePagination<T>(items: T[], itemsPerPage: number = 10) {
     goToNext,
     goToPrev,
     reset,
-    itemsPerPage
+    itemsPerPage,
   };
 }
