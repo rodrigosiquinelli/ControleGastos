@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\ControleGastos.Application\ControleGastos.Application.csproj" />
-    <ProjectReference Include="..\API\ControleGastos.Domain\ControleGastos.Domain.csproj" />
+	<ProjectReference Include="..\ControleGastos.Application\ControleGastos.Application.csproj" />
+	<ProjectReference Include="..\ControleGastos.Domain\ControleGastos.Domain.csproj" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
