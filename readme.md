@@ -72,3 +72,72 @@ npm run dev
 * `/api`: Código fonte do Backend (C#).
 * `/web`: Código fonte do Frontend (React/TS).
 * `/database`: Volume de persistência do SQLite (utilizado pelo Docker).
+
+---
+
+# 🧪 Testes Unitários e Cobertura
+
+## Backend
+
+### Utilizamos o Fine Code Coverage para visualização de métricas de testes.
+
+A Extensão: A pessoa que baixar o repositório precisa ter a extensão "Fine Code Coverage" instalada no Visual Studio para ver os relatórios gráficos em tempo real dentro da IDE.
+
+## 🛠️ Como rodar os testes
+
+1. Abra o Test Explorer no Visual Studio.
+
+2. Execute todos os testes (Run All Tests).
+
+3. Abra a janela Fine Code Coverage (View > Other Windows > Fine Code Coverage) para ver a porcentagem de cobertura.
+
+---
+## Frontend
+ 
+## Instalação das Dependências
+ 
+Para rodar os testes e gerar os relatórios de cobertura, é necessário instalar o motor de coverage:
+ 
+```cmd
+npm install -D @vitest/coverage-v8
+```
+ 
+## Configuração de Scripts
+ 
+Adicione ou atualize os scripts no seu `package.json`:
+ 
+```json
+"scripts": {
+  "test": "vitest",
+  "test:coverage": "vitest run --coverage"
+}
+```
+ 
+## Como Executar
+ 
+* ### Via Terminal (CLI)
+ 
+**Rodar testes:**
+ 
+```cmd
+npm test
+```
+ 
+**Gerar relatório de cobertura:**
+ 
+```cmd
+npm run test:coverage
+```
+ 
+* ### Via VS Code (Interface Gráfica)
+ 
+1. Instale a extensão oficial **Vitest**.
+2. Abra a aba **Testing** (ícone de um "bequer") na barra lateral esquerda do VS Code.
+3. Clique no ícone de **Play** para rodar os testes ou no ícone de **Coverage** para visualizar as linhas cobertas diretamente no código.
+ 
+## O que cada comando faz
+ 
+| Comando | Descrição |
+|---|---|
+| `npm test` | Executa os testes normalmente. |
+| `npm run test:coverage` | Executa todos os testes e gera estatísticas de cobertura de cada classe testada. |
